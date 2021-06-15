@@ -32,7 +32,7 @@ public class Commande {
 	@JoinColumn(name="id_client")
 	private Client client;
 	
-	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
 	@JoinTable(name="commandes_has_produits",
 				joinColumns = @JoinColumn(name = "id_commande"),
 				inverseJoinColumns = @JoinColumn(name = "id_produit"))	
