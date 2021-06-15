@@ -3,6 +3,7 @@ package com.gwendal.magasinJPA.models;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -31,6 +34,7 @@ public class Produit {
 	@JoinColumn(name="id_categorie")
 	private Categorie categorie;
 	
-	@ManyToMany(mappedBy = "produits", fetch = FetchType.LAZY)
+	@JsonIgnore
+	@ManyToMany(targetEntity = Commande.class, mappedBy = "produits", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private Set<Commande> commandes = new HashSet<>();
 }

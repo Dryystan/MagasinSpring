@@ -15,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Data
@@ -30,13 +32,10 @@ public class Commande {
 	@JoinColumn(name="id_client")
 	private Client client;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-	@JoinTable(name = "commandes_has_produits",
-				joinColumns = {
-						@JoinColumn(name = "id_commande", referencedColumnName = "id",
-								nullable = false, updatable = false)},
-				inverseJoinColumns = {
-						@JoinColumn(name =  "id_produit", referencedColumnName = "id",
-								nullable = false, updatable = false)})
+	@JsonIgnore
+	@ManyToMany(targetEntity = Produit.class, cascade = CascadeType.PERSIST)
+	@JoinTable(name="commandes_has_produits",
+				joinColumns = @JoinColumn(name = "id_commande"),
+				inverseJoinColumns = @JoinColumn(name = "id_produit"))	
 	private Set<Produit> produits = new HashSet<>();
 }
