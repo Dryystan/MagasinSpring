@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gwendal.magasinJPA.models.Client;
 import com.gwendal.magasinJPA.models.Commande;
+import com.gwendal.magasinJPA.services.impl.ClientServiceImpl;
 import com.gwendal.magasinJPA.services.impl.CommandeServiceImpl;
 
 @RestController
@@ -31,6 +33,11 @@ public class CommandeController {
 	@GetMapping("{id}")
 	public Commande findById(@PathVariable Long id) {
 		return this.service.findById(id);
+	}
+	
+	@GetMapping("client/{id_client}")
+	public List<Commande> findByClientId(@PathVariable Long id_client) {
+		return this.service.findByClientId(id_client);
 	}
 	
 	@PostMapping("")

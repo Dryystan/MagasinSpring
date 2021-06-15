@@ -1,6 +1,7 @@
 package com.gwendal.magasinJPA.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gwendal.magasinJPA.models.Client;
+import com.gwendal.magasinJPA.models.Commande;
 import com.gwendal.magasinJPA.services.impl.ClientServiceImpl;
 
 @RestController
@@ -31,6 +33,18 @@ public class ClientController {
 	@GetMapping("{id}")
 	public Client findById(@PathVariable Long id) {
 		return this.service.findById(id);
+	}
+	
+	@GetMapping("/nom/{nom}")
+	public List<Client> findByNom(@PathVariable String nom) {
+		List<Client> client = service.findByNom(nom);
+		return client;
+	}
+	
+	@GetMapping("/prenom/{prenom}")
+	public List<Client> findByPreom(@PathVariable String prenom) {
+		List<Client> client = service.findByPrenom(prenom);
+		return client;
 	}
 	
 	@PostMapping("")
