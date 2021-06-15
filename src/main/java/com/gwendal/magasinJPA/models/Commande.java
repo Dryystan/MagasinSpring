@@ -32,8 +32,7 @@ public class Commande {
 	@JoinColumn(name="id_client")
 	private Client client;
 	
-	@JsonIgnore
-	@ManyToMany(targetEntity = Produit.class, cascade = CascadeType.PERSIST)
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinTable(name="commandes_has_produits",
 				joinColumns = @JoinColumn(name = "id_commande"),
 				inverseJoinColumns = @JoinColumn(name = "id_produit"))	

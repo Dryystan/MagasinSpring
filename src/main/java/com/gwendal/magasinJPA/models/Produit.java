@@ -14,13 +14,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 
-@Data
 @Entity
 @Table(name="produits")
+@JsonIgnoreProperties({"commandes"})
 public class Produit {
 	
 	@Id
@@ -33,8 +33,33 @@ public class Produit {
 	@ManyToOne
 	@JoinColumn(name="id_categorie")
 	private Categorie categorie;
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public int getPrix() {
+		return prix;
+	}
+
+	public Categorie getCategorie() {
+		return categorie;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public void setPrix(int prix) {
+		this.prix = prix;
+	}
+
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
 	
-	@JsonIgnore
-	@ManyToMany(targetEntity = Commande.class, mappedBy = "produits", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-	private Set<Commande> commandes = new HashSet<>();
 }
